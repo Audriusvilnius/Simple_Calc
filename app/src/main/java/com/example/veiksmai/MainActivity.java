@@ -45,20 +45,9 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
 
             editOperations = findViewById(R.id.editTextActionBar);
-            textDescription = findViewById(R.id.textViewDescription);
-            textDescription.setText("Enter the actions you want to perform with the numbers. \n" + "The actions must be separated by a space. \n" + "The actions can be: +, -, *, /, %, ^, s = sqrt, ! ");
-            textDescription.setVisibility(View.INVISIBLE);
-            textResult = findViewById(R.id.textViewResult);
-            String Result = calcResult(editOperations.getText().toString());
-            if (parseDouble(Result) != 0) {
-                textResult.setVisibility(View.VISIBLE);
-            } else {
-                textResult.setVisibility(View.INVISIBLE);
-            }
 
-            textResult.setText("Result: " + Result);
-            editTextNumberDecimal = findViewById(R.id.editTextNumberDecimal);
-            editTextNumberDecimal.setVisibility(View.INVISIBLE);
+            String Result = calcResult(editOperations.getText().toString());
+
 
             Button buttonPlus = findViewById(R.id.plusButton);
             Button buttonMinus = findViewById(R.id.minusButton);
@@ -69,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
             Button buttonSqrt = findViewById(R.id.sqrtButton);
             Button buttonResult = findViewById(R.id.resultButton);
             Button buttonClear = findViewById(R.id.clearButton);
+            Button buttonDelete = findViewById(R.id.deleteButton);
 
             buttonPlus.setOnClickListener(v1 -> {
                 editOperations.setText(editOperations.getText() + " + ");
@@ -118,6 +108,16 @@ public class MainActivity extends AppCompatActivity {
             });
             buttonClear.setOnClickListener(v19 -> {
                 editOperations.setText("");
+                isResult = true;
+            });
+            buttonDelete.setOnClickListener(v110 -> {
+                String text = editOperations.getText().toString();
+                if (!text.isEmpty()) {
+                    text = text.substring(0, text.length() - 1);
+                    editOperations.setText(text);
+                    editOperations.setSelection(editOperations.getText().length());
+                    isResult = true;
+                }
             });
 
             return insets;
